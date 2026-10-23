@@ -6,19 +6,19 @@
     <title>SportMatch - 全球运动匹配平台 | Find Sports Partners & Games Nearby</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-50 text-gray-800 font-sans scroll-smooth">
 
     <!-- 顶部导航栏 -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold text-indigo-600">SportMatch</h1>
             <nav class="space-x-6 hidden md:flex">
-                <a href="#search" class="hover:text-indigo-600">查找比赛</a>
-                <a href="#partners" class="hover:text-indigo-600">运动球友</a>
-                <a href="#vacancies" class="hover:text-indigo-600">寻找替补</a>
+                <a href="#resultsSection" class="hover:text-indigo-600">查找比赛</a>
+                <a href="#categories" class="hover:text-indigo-600">运动球友</a>
+                <a href="#resultsSection" class="hover:text-indigo-600">寻找替补</a>
             </nav>
             <div>
-                <button onclick="alert('欢迎使用 SportMatch！注册和发布功能即将上线。')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">立即开始</button>
+                <button onclick="alert('欢迎来到 SportMatch！注册与发布功能正在升级中。')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 cursor-pointer">立即开始</button>
             </div>
         </div>
     </header>
@@ -39,15 +39,32 @@
     </section>
 
     <!-- 搜索结果展示区 -->
-    <section id="resultsSection" class="max-w-7xl mx-auto py-12 px-4 hidden">
-        <h3 id="resultTitle" class="text-2xl font-bold mb-6">🔍 搜索结果</h3>
+    <section id="resultsSection" class="max-w-7xl mx-auto py-12 px-4">
+        <h3 id="resultTitle" class="text-2xl font-bold mb-6">🔍 推荐组局与球友</h3>
         <div id="resultCards" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- 动态填充搜索结果 -->
+            <div class="bg-white p-6 rounded-xl shadow border border-indigo-100">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">招募中 (寻找 1 名替补)</span>
+                    <span class="text-sm text-gray-500">📍 Bintulu 室内球馆</span>
+                </div>
+                <h4 class="text-xl font-bold text-gray-900 mb-1">周末双打友谊赛 (Badminton)</h4>
+                <p class="text-gray-600 text-sm mb-4">时间：本周日晚上 8:00 - 10:00。欢迎中等水平球友加入，气氛轻松！</p>
+                <button onclick="alert('报名成功！组织者将尽快与您联系。')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-semibold hover:bg-indigo-100 cursor-pointer">立即加入 / 报名</button>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow border border-indigo-100">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-semibold">寻找搭档</span>
+                    <span class="text-sm text-gray-500">📍 Bintulu 社区球场</span>
+                </div>
+                <h4 class="text-xl font-bold text-gray-900 mb-1">寻找固定羽毛球陪练伙伴</h4>
+                <p class="text-gray-600 text-sm mb-4">寻找每周二、四晚上一起练习切磋的伙伴，男女不限。</p>
+                <button onclick="alert('已成功发送搭档请求！')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-semibold hover:bg-indigo-100 cursor-pointer">联系球友</button>
+            </div>
         </div>
     </section>
 
     <!-- 热门运动分类 -->
-    <section class="max-w-7xl mx-auto py-16 px-4">
+    <section id="categories" class="max-w-7xl mx-auto py-16 px-4">
         <h3 class="text-2xl font-bold text-center mb-10">热门运动项目</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div onclick="selectSport('Badminton')" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition cursor-pointer">
@@ -84,37 +101,22 @@
         function handleSearch() {
             const sport = document.getElementById('sportInput').value;
             const city = document.getElementById('cityInput').value;
-            const section = document.getElementById('resultsSection');
-            const container = document.getElementById('resultCards');
             const title = document.getElementById('resultTitle');
+            const container = document.getElementById('resultCards');
 
-            section.classList.remove('hidden');
-            title.innerText = 🔍 找到 ${city || '本地'} 的 ${sport ||fromRGB || '所有'} 组局与球友：;
-
-            // 模拟一些匹配的数据
+            title.innerText = 🔍 找到 ${city || '本地'} 的 ${sport} 组局与球友：;
             container.innerHTML = `
                 <div class="bg-white p-6 rounded-xl shadow border border-indigo-100">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">招募中 (寻找 1 名替补)</span>
-                        <span class="text-sm text-gray-500">📍 ${city || 'Bintulu'} 室内球馆</span>
+                        <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">招募中 (匹配成功)</span>
+                        <span class="text-sm text-gray-500">📍 ${city} 运动中心</span>
                     </div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-1">周末双打友谊赛 (${sport})</h4>
-                    <p class="text-gray-600 text-sm mb-4">时间：本周日晚上 8:00 - 10:00。欢迎中等水平球友加入，气氛轻松！</p>
-                    <button onclick="alert('报名成功！组织者将会通过系统联系您。')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-semibold hover:bg-indigo-100">立即加入 / 报名</button>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow border border-indigo-100">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-semibold">寻找搭档</span>
-                        <span class="text-sm text-gray-500">📍 ${city || 'Bintulu'} 社区球场</span>
-                    </div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-1">寻找固定 ${sport} 陪练伙伴</h4>
-                    <p class="text-gray-600 text-sm mb-4">寻找每周二、四晚上一起练习切磋的伙伴，男女不限。</p>
-                    <button onclick="alert('已发送搭档请求！')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-semibold hover:bg-indigo-100">联系球友</button>
+                    <h4 class="text-xl font-bold text-gray-900 mb-1">${sport} 专场活动</h4>
+                    <p class="text-gray-600 text-sm mb-4">为您匹配到 ${city} 地区正在寻找 ${sport} 队友的活跃局，点击下方即可一键加入。</p>
+                    <button onclick="alert('报名成功！')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-semibold hover:bg-indigo-100 cursor-pointer">立即加入</button>
                 </div>
             `;
-
-            // 滚动到结果区域
-            section.scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
