@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查找比赛 - SportMatch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-indigo-600">SportMatch</a>
+            <nav class="space-x-6 hidden md:flex font-medium">
+                <a href="search.html" class="hover:text-indigo-600">搜索</a>
+                <a href="matches.html" class="text-indigo-600 font-bold">查找比赛</a>
+                <a href="partners.html" class="hover:text-indigo-600">运动球友</a>
+                <a href="vacancies.html" class="hover:text-indigo-600">寻找替补</a>
+            </nav>
+            <div>
+                <a href="get-started.html" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">立即开始</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-12 px-4">
+        <h2 class="text-3xl font-bold mb-8">🏆 热门赛事与比赛</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow border">
+                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">羽毛球</span>
+                <h3 class="text-xl font-bold mt-3">周末社区双打联赛</h3>
+                <p class="text-gray-500 text-sm mt-2">时间：每周六 19:00</p>
+                <button onclick="alert('已加入比赛！')" class="w-full mt-4 bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700">加入比赛</button>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow border">
+                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">足球</span>
+                <h3 class="text-xl font-bold mt-3">5人制夜间友谊赛</h3>
+                <p class="text-gray-500 text-sm mt-2">时间：本周日 20:00</p>
+                <button onclick="alert('已加入比赛！')" class="w-full mt-4 bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700">加入比赛</button>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow border">
+                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">匹克球</span>
+                <h3 class="text-xl font-bold mt-3">匹克球新手体验赛</h3>
+                <p class="text-gray-500 text-sm mt-2">时间：下周二 18:00</p>
+                <button onclick="alert('已加入比赛！')" class="w-full mt-4 bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700">加入比赛</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

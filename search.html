@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全站搜索 - SportMatch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-indigo-600">SportMatch</a>
+            <nav class="space-x-6 hidden md:flex font-medium">
+                <a href="search.html" class="text-indigo-600 font-bold">搜索</a>
+                <a href="matches.html" class="hover:text-indigo-600">查找比赛</a>
+                <a href="partners.html" class="hover:text-indigo-600">运动球友</a>
+                <a href="vacancies.html" class="hover:text-indigo-600">寻找替补</a>
+            </nav>
+            <div>
+                <a href="get-started.html" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">立即开始</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto py-12 px-4">
+        <h2 class="text-3xl font-bold mb-6">🔍 搜索比赛与球友</h2>
+        <div class="bg-white p-4 rounded-xl shadow flex flex-col md:flex-row gap-3 mb-8">
+            <input id="sportInput" type="text" placeholder="运动项目 (例如: 羽毛球)" class="flex-1 p-3 border rounded-lg" value="羽毛球">
+            <input id="cityInput" type="text" placeholder="国家 / 城市 (例如: Bintulu)" class="flex-1 p-3 border rounded-lg" value="Bintulu">
+            <button onclick="doSearch()" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-indigo-700">搜索</button>
+        </div>
+
+        <div id="searchResults" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 搜索结果模板 -->
+            <div class="bg-white p-6 rounded-xl shadow border">
+                <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">招募中</span>
+                <h3 class="text-xl font-bold mt-2">Bintulu 双打切磋局</h3>
+                <p class="text-gray-600 text-sm my-2">项目：羽毛球 | 地点：Bintulu 室内球馆</p>
+                <button onclick="alert('报名成功！')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-bold">立即报名</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function doSearch() {
+            const sport = document.getElementById('sportInput').value;
+            const city = document.getElementById('cityInput').value;
+            document.getElementById('searchResults').innerHTML = `
+                <div class="bg-white p-6 rounded-xl shadow border col-span-2 text-center py-8">
+                    <h3 class="text-lg font-bold text-gray-700">正在显示 ${city} 地区的 ${sport} 搜索结果：</h3>
+                    <p class="text-gray-500 mt-2">为您找到 2 个符合条件的活动局。</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

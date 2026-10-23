@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>立即开始 - SportMatch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-indigo-600">SportMatch</a>
+            <nav class="space-x-6 hidden md:flex font-medium">
+                <a href="search.html" class="hover:text-indigo-600">搜索</a>
+                <a href="matches.html" class="hover:text-indigo-600">查找比赛</a>
+                <a href="partners.html" class="hover:text-indigo-600">运动球友</a>
+                <a href="vacancies.html" class="hover:text-indigo-600">寻找替补</a>
+            </nav>
+            <div>
+                <a href="get-started.html" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">立即开始</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-md mx-auto my-16 bg-white p-8 rounded-xl shadow-md border">
+        <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">加入 SportMatch</h2>
+        <form onsubmit="event.preventDefault(); alert('注册成功！');">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-semibold mb-2">邮箱 / 用户名</label>
+                <input type="text" required class="w-full p-3 border rounded-lg focus:outline-indigo-600" placeholder="your@email.com">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-semibold mb-2">密码</label>
+                <input type="password" required class="w-full p-3 border rounded-lg focus:outline-indigo-600" placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">立即注册账号</button>
+        </form>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 text-center mt-auto">
+        <p>&copy; 2026 SportMatch. 构建全球运动社交连接。</p>
+    </footer>
+</body>
+</html>
