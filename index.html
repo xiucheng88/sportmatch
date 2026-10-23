@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportMatch Malaysia</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+    }
+    header {
+      background: #123b70;
+      color: white;
+      padding: 22px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    header h1 { margin: 0; font-size: 26px; }
+    header span { color: #70e1c0; }
+    .hero {
+      text-align: center;
+      padding: 65px 20px 45px;
+      background: #e4efff;
+    }
+    .hero h2 { font-size: 38px; margin: 0 0 14px; }
+    .hero p { font-size: 17px; color: #526079; }
+    .search {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 25px auto 0;
+      max-width: 750px;
+    }
+    input, select, button {
+      padding: 13px;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    input, select {
+      border: 1px solid #cbd5e1;
+      background: white;
+    }
+    button {
+      border: 0;
+      background: #087f68;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    main { max-width: 1050px; margin: auto; padding: 35px 20px; }
+    .sports {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: white;
+      padding: 25px 18px;
+      border-radius: 14px;
+      box-shadow: 0 3px 14px #17203310;
+      text-align: center;
+    }
+    .card .emoji { font-size: 38px; }
+    .card h3 { margin-bottom: 8px; }
+    .card p { color: #64748b; font-size: 14px; }
+    .action {
+      margin-top: 30px;
+      text-align: center;
+      background: white;
+      padding: 28px;
+      border-radius: 14px;
+    }
+    footer { text-align: center; padding: 25px; color: #64748b; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sport<span>Match</span> Malaysia</h1>
+    <div>Find Players · Join Games · Make Friends</div>
+  </header>
+
+  <section class="hero">
+    <h2>Let's Play Together!</h2>
+    <p>Find sports partners and join games anywhere in Malaysia.</p>
+
+    <div class="search">
+      <input id="city" placeholder="City, e.g. Bintulu">
+      <select id="sport">
+        <option value="All Sports">All Sports</option>
+        <option>Badminton</option>
+        <option>Basketball</option>
+        <option>Football</option>
+        <option>Futsal</option>
+        <option>Running</option>
+        <option>Volleyball</option>
+      </select>
+      <button onclick="searchGames()">Find Games</button>
+    </div>
+  </section>
+
+  <main>
+    <h2>Choose Your Sport</h2>
+    <div class="sports">
+      <div class="card">
+        <div class="emoji">🏸</div>
+        <h3>Badminton</h3>
+        <p>Need one more player? Find your doubles partner.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">🏀</div>
+        <h3>Basketball</h3>
+        <p>Join a team or organise a friendly match.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">⚽</div>
+        <h3>Football</h3>
+        <p>Find players for your next game.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">🏃</div>
+        <h3>Running</h3>
+        <p>Meet running buddies near you.</p>
+      </div>
+    </div>
+
+    <div class="action">
+      <h2>Ready to Play?</h2>
+      <p>Start by finding a game or planning your own activity.</p>
+      <button onclick="alert('Game posting will be added in the next step!')">
+        Post a Game
+      </button>
+    </div>
+  </main>
+
+  <footer>SportMatch Malaysia · Connecting people through sports</footer>
+
+  <script>
+    function searchGames() {
+      const city = document.getElementById('city').value.trim();
+      const sport = document.getElementById('sport').value;
+      alert(
+        'SportMatch Search\nCity: ' + (city || 'All Malaysia') +
+        '\nSport: ' + sport +
+        '\n\nGame listings and matching will be added next.'
+      );
+    }
+  </script>
+</body>
+</html>
