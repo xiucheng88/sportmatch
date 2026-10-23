@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全站搜索 - SportMatch</title>
+    <title>高级搜索 - SportMatch</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -22,33 +22,70 @@
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto py-12 px-4">
-        <h2 class="text-3xl font-bold mb-6">🔍 搜索比赛与球友</h2>
-        <div class="bg-white p-4 rounded-xl shadow flex flex-col md:flex-row gap-3 mb-8">
-            <input id="sportInput" type="text" placeholder="运动项目 (例如: 羽毛球)" class="flex-1 p-3 border rounded-lg" value="羽毛球">
-            <input id="cityInput" type="text" placeholder="国家 / 城市 (例如: Bintulu)" class="flex-1 p-3 border rounded-lg" value="Bintulu">
-            <button onclick="doSearch()" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-indigo-700">搜索</button>
+    <main class="max-w-6xl mx-auto py-12 px-4">
+        <h2 class="text-3xl font-bold mb-6">🔍 全球运动多维搜索</h2>
+        
+        <!-- 筛选面板 -->
+        <div class="bg-white p-6 rounded-2xl shadow-md border grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">运动项目</label>
+                <select id="sportFilter" class="w-full p-3 border rounded-lg bg-gray-50">
+                    <option value="all">全部运动</option>
+                    <option value="Badminton">羽毛球 (Badminton)</option>
+                    <option value="Football">足球 (Football)</option>
+                    <option value="Basketball">篮球 (Basketball)</option>
+                    <option value="Pickleball">匹克球 (Pickleball)</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">国家 / 城市</label>
+                <input id="cityFilter" type="text" placeholder="例如: Malaysia, Bintulu" class="w-full p-3 border rounded-lg bg-gray-50" value="Bintulu">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">水平要求</label>
+                <select id="levelFilter" class="w-full p-3 border rounded-lg bg-gray-50">
+                    <option value="all">不限水平</option>
+                    <option value="beginner">新手友好</option>
+                    <option value="intermediate">中等水平</option>
+                    <option value="advanced">高手进阶</option>
+                </select>
+            </div>
+            <div class="flex items-end">
+                <button onclick="performSearch()" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">立即检索</button>
+            </div>
         </div>
 
-        <div id="searchResults" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- 搜索结果模板 -->
+        <!-- 结果展示区 -->
+        <h3 id="resultCount" class="text-xl font-bold mb-4">为您找到以下匹配结果：</h3>
+        <div id="resultsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 动态卡片 -->
             <div class="bg-white p-6 rounded-xl shadow border">
-                <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">招募中</span>
-                <h3 class="text-xl font-bold mt-2">Bintulu 双打切磋局</h3>
-                <p class="text-gray-600 text-sm my-2">项目：羽毛球 | 地点：Bintulu 室内球馆</p>
-                <button onclick="alert('报名成功！')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-bold">立即报名</button>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">招募中</span>
+                    <span class="text-sm text-gray-500">📍 Bintulu 室内球馆</span>
+                </div>
+                <h4 class="text-xl font-bold">周三羽毛球双打友谊赛</h4>
+                <p class="text-gray-600 text-sm my-2">项目：羽毛球 | 水平：中等 | 缺额：2人</p>
+                <button onclick="alert('报名成功！')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-bold hover:bg-indigo-100 transition">立即报名</button>
             </div>
         </div>
     </main>
 
     <script>
-        function doSearch() {
-            const sport = document.getElementById('sportInput').value;
-            const city = document.getElementById('cityInput').value;
-            document.getElementById('searchResults').innerHTML = `
-                <div class="bg-white p-6 rounded-xl shadow border col-span-2 text-center py-8">
-                    <h3 class="text-lg font-bold text-gray-700">正在显示 ${city} 地区的 ${sport} 搜索结果：</h3>
-                    <p class="text-gray-500 mt-2">为您找到 2 个符合条件的活动局。</p>
+        function performSearch() {
+            const sport = document.getElementById('sportFilter').value;
+            const city = document.getElementById('cityFilter').value;
+            const container = document.getElementById('resultsContainer');
+            
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-xl shadow border col-span-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">精选推荐</span>
+                        <span class="text-sm text-gray-500">📍 ${city || '全球'}</span>
+                    </div>
+                    <h4 class="text-xl font-bold">${sport === 'all' ? '综合运动' : sport} 专属局</h4>
+                    <p class="text-gray-600 text-sm my-2">已成功按照您的条件（城市: ${city}）过滤，欢迎随时加入！</p>
+                    <button onclick="alert('报名成功！')" class="w-full bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition">一键加入组局</button>
                 </div>
             `;
         }

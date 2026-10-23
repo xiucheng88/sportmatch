@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>查找比赛 - SportMatch</title>
+    <title>查找与创建比赛 - SportMatch</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -23,27 +23,78 @@
     </header>
 
     <main class="max-w-7xl mx-auto py-12 px-4">
-        <h2 class="text-3xl font-bold mb-8">🏆 热门赛事与比赛</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold">🏆 赛事大厅与组局广场</h2>
+            <button onclick="toggleCreateModal()" class="mt-4 md:mt-0 bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700 transition">+ 发布新比赛 / 组局</button>
+        </div>
+
+        <!-- 发布比赛弹窗表单（默认隐藏） -->
+        <div id="createModal" class="hidden bg-white p-6 rounded-2xl shadow-xl border mb-10 max-w-2xl mx-auto">
+            <h3 class="text-xl font-bold mb-4">创建您的运动比赛</h3>
+            <form onsubmit="handleCreateMatch(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">运动项目</label>
+                        <input id="newSport" type="text" required class="w-full p-3 border rounded-lg" placeholder="例如: 羽毛球 / 足球">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">城市 / 地点</label>
+                        <input id="newLocation" type="text" required class="w-full p-3 border rounded-lg" placeholder="例如: Bintulu 体育馆">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-1">活动详情描述</label>
+                    <textarea id="newDesc" required class="w-full p-3 border rounded-lg" placeholder="例如：本周六下午开打，寻找2位中级水平搭档..."></textarea>
+                </div>
+                <div class="flex justify-end gap-3">
+                    <button type="button" onclick="toggleCreateModal()" class="px-5 py-2 border rounded-lg">取消</button>
+                    <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-lg font-bold">确认发布</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 比赛列表 -->
+        <div id="matchList" class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-white p-6 rounded-xl shadow border">
                 <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">羽毛球</span>
                 <h3 class="text-xl font-bold mt-3">周末社区双打联赛</h3>
-                <p class="text-gray-500 text-sm mt-2">时间：每周六 19:00</p>
-                <button onclick="alert('已加入比赛！')" class="w-full mt-4 bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700">加入比赛</button>
+                <p class="text-gray-500 text-sm mt-2">📍 Bintulu 室内球馆 | 周六 19:00</p>
+                <button onclick="alert('已成功报名！')" class="w-full mt-4 bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition">立即加入</button>
             </div>
             <div class="bg-white p-6 rounded-xl shadow border">
                 <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">足球</span>
                 <h3 class="text-xl font-bold mt-3">5人制夜间友谊赛</h3>
-                <p class="text-gray-500 text-sm mt-2">时间：本周日 20:00</p>
-                <button onclick="alert('已加入比赛！')" class="w-full mt-4 bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700">加入比赛</button>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow border">
-                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">匹克球</span>
-                <h3 class="text-xl font-bold mt-3">匹克球新手体验赛</h3>
-                <p class="text-gray-500 text-sm mt-2">时间：下周二 18:00</p>
-                <button onclick="alert('已加入比赛！')" class="w-full mt-4 bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700">加入比赛</button>
+                <p class="text-gray-500 text-sm mt-2">📍 城市足球场 | 周日 20:00</p>
+                <button onclick="alert('已成功报名！')" class="w-full mt-4 bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition">立即加入</button>
             </div>
         </div>
     </main>
+
+    <script>
+        function toggleCreateModal() {
+            const modal = document.getElementById('createModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function handleCreateMatch(event) {
+            event.preventDefault();
+            const sport = document.getElementById('newSport').value;
+            const location = document.getElementById('newLocation').value;
+            const desc = document.getElementById('newDesc').value;
+
+            const list = document.getElementById('matchList');
+            list.innerHTML += `
+                <div class="bg-white p-6 rounded-xl shadow border border-indigo-200">
+                    <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">${sport} (新发布)</span>
+                    <h3 class="text-xl font-bold mt-3">用户自建球局</h3>
+                    <p class="text-gray-600 text-sm my-2">📍 ${location}</p>
+                    <p class="text-gray-500 text-xs mb-4">${desc}</p>
+                    <button onclick="alert('报名成功！')" class="w-full bg-indigo-600 text-white py-2 rounded-lg font-bold">立即加入</button>
+                </div>
+            `;
+            toggleCreateModal();
+            alert('发布成功！您的球局已实时展示在广场上。');
+        }
+    </script>
 </body>
 </html>
