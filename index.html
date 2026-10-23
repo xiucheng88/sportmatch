@@ -1,157 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SportMatch Malaysia</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #172033;
-    }
-    header {
-      background: #123b70;
-      color: white;
-      padding: 22px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    header h1 { margin: 0; font-size: 26px; }
-    header span { color: #70e1c0; }
-    .hero {
-      text-align: center;
-      padding: 65px 20px 45px;
-      background: #e4efff;
-    }
-    .hero h2 { font-size: 38px; margin: 0 0 14px; }
-    .hero p { font-size: 17px; color: #526079; }
-    .search {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin: 25px auto 0;
-      max-width: 750px;
-    }
-    input, select, button {
-      padding: 13px;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-    input, select {
-      border: 1px solid #cbd5e1;
-      background: white;
-    }
-    button {
-      border: 0;
-      background: #087f68;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    main { max-width: 1050px; margin: auto; padding: 35px 20px; }
-    .sports {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 18px;
-    }
-    .card {
-      background: white;
-      padding: 25px 18px;
-      border-radius: 14px;
-      box-shadow: 0 3px 14px #17203310;
-      text-align: center;
-    }
-    .card .emoji { font-size: 38px; }
-    .card h3 { margin-bottom: 8px; }
-    .card p { color: #64748b; font-size: 14px; }
-    .action {
-      margin-top: 30px;
-      text-align: center;
-      background: white;
-      padding: 28px;
-      border-radius: 14px;
-    }
-    footer { text-align: center; padding: 25px; color: #64748b; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportMatch - 全球运动匹配平台 | Find Sports Partners & Games Nearby</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <h1>Sport<span>Match</span> Malaysia</h1>
-    <div>Find Players · Join Games · Make Friends</div>
-  </header>
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-  <section class="hero">
-    <h2>Let's Play Together!</h2>
-    <p>Find sports partners and join games anywhere in Malaysia.</p>
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-600">SportMatch</h1>
+            <nav class="space-x-6 hidden md:flex">
+                <a href="#search" class="hover:text-indigo-600">查找比赛</a>
+                <a href="#partners" class="hover:text-indigo-600">运动球友</a>
+                <a href="#vacancies" class="hover:text-indigo-600">寻找替补</a>
+            </nav>
+            <div>
+                <button onclick="alert('欢迎使用 SportMatch！注册和发布功能即将上线。')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">立即开始</button>
+            </div>
+        </div>
+    </header>
 
-    <div class="search">
-      <input id="city" placeholder="City, e.g. Bintulu">
-      <select id="sport">
-        <option value="All Sports">All Sports</option>
-        <option>Badminton</option>
-        <option>Basketball</option>
-        <option>Football</option>
-        <option>Futsal</option>
-        <option>Running</option>
-        <option>Volleyball</option>
-      </select>
-      <button onclick="searchGames()">Find Games</button>
-    </div>
-  </section>
+    <!-- 核心横幅区 (Hero Section) -->
+    <section class="bg-indigo-700 text-white py-20 text-center px-4">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl font-extrabold mb-4">连接全球运动爱好者，随时随地组局开打</h2>
+            <p class="text-lg mb-8 text-indigo-100">轻松寻找附近球友、加入本地比赛或为球队寻找替补。涵盖羽毛球、足球、篮球、网球、匹克球、排球等热门运动！</p>
+            
+            <!-- 快捷搜索栏 -->
+            <div class="bg-white p-3 rounded-xl shadow-lg flex flex-col md:flex-row gap-3 text-gray-800">
+                <input id="sportInput" type="text" placeholder="选择运动 (例如: Badminton)" class="flex-1 p-3 border rounded-lg focus:outline-none" value="Badminton">
+                <input id="cityInput" type="text" placeholder="国家 / 城市 (例如: Bintulu)" class="flex-1 p-3 border rounded-lg focus:outline-none" value="Bintulu">
+                <button onclick="handleSearch()" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 cursor-pointer">搜索</button>
+            </div>
+        </div>
+    </section>
 
-  <main>
-    <h2>Choose Your Sport</h2>
-    <div class="sports">
-      <div class="card">
-        <div class="emoji">🏸</div>
-        <h3>Badminton</h3>
-        <p>Need one more player? Find your doubles partner.</p>
-      </div>
-      <div class="card">
-        <div class="emoji">🏀</div>
-        <h3>Basketball</h3>
-        <p>Join a team or organise a friendly match.</p>
-      </div>
-      <div class="card">
-        <div class="emoji">⚽</div>
-        <h3>Football</h3>
-        <p>Find players for your next game.</p>
-      </div>
-      <div class="card">
-        <div class="emoji">🏃</div>
-        <h3>Running</h3>
-        <p>Meet running buddies near you.</p>
-      </div>
-    </div>
+    <!-- 搜索结果展示区 -->
+    <section id="resultsSection" class="max-w-7xl mx-auto py-12 px-4 hidden">
+        <h3 id="resultTitle" class="text-2xl font-bold mb-6">🔍 搜索结果</h3>
+        <div id="resultCards" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 动态填充搜索结果 -->
+        </div>
+    </section>
 
-    <div class="action">
-      <h2>Ready to Play?</h2>
-      <p>Start by finding a game or planning your own activity.</p>
-      <button onclick="alert('Game posting will be added in the next step!')">
-        Post a Game
-      </button>
-    </div>
-  </main>
+    <!-- 热门运动分类 -->
+    <section class="max-w-7xl mx-auto py-16 px-4">
+        <h3 class="text-2xl font-bold text-center mb-10">热门运动项目</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div onclick="selectSport('Badminton')" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition cursor-pointer">
+                <span class="text-4xl">🏸</span>
+                <h4 class="font-semibold mt-3">羽毛球 (Badminton)</h4>
+            </div>
+            <div onclick="selectSport('Football')" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition cursor-pointer">
+                <span class="text-4xl">⚽</span>
+                <h4 class="font-semibold mt-3">Football (足球)</h4>
+            </div>
+            <div onclick="selectSport('Basketball')" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition cursor-pointer">
+                <span class="text-4xl">🏀</span>
+                <h4 class="font-semibold mt-3">Basketball (篮球)</h4>
+            </div>
+            <div onclick="selectSport('Pickleball')" class="bg-white p-6 rounded-xl shadow hover:shadow-md transition cursor-pointer">
+                <span class="text-4xl">🎾</span>
+                <h4 class="font-semibold mt-3">Tennis & Pickleball (匹克球)</h4>
+            </div>
+        </div>
+    </section>
 
-  <footer>SportMatch Malaysia · Connecting people through sports</footer>
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <p>&copy; 2026 SportMatch. 构建全球运动社交连接。</p>
+    </footer>
 
-  <script>
-    function searchGames() {
-      const city = document.getElementById('city').value.trim();
-      const sport = document.getElementById('sport').value;
-      alert(
-        'SportMatch Search\nCity: ' + (city || 'All Malaysia') +
-        '\nSport: ' + sport +
-        '\n\nGame listings and matching will be added next.'
-      );
-    }
-  </script>
+    <!-- 互动逻辑脚本 -->
+    <script>
+        function selectSport(sportName) {
+            document.getElementById('sportInput').value = sportName;
+            handleSearch();
+        }
+
+        function handleSearch() {
+            const sport = document.getElementById('sportInput').value;
+            const city = document.getElementById('cityInput').value;
+            const section = document.getElementById('resultsSection');
+            const container = document.getElementById('resultCards');
+            const title = document.getElementById('resultTitle');
+
+            section.classList.remove('hidden');
+            title.innerText = 🔍 找到 ${city || '本地'} 的 ${sport ||fromRGB || '所有'} 组局与球友：;
+
+            // 模拟一些匹配的数据
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-xl shadow border border-indigo-100">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">招募中 (寻找 1 名替补)</span>
+                        <span class="text-sm text-gray-500">📍 ${city || 'Bintulu'} 室内球馆</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-1">周末双打友谊赛 (${sport})</h4>
+                    <p class="text-gray-600 text-sm mb-4">时间：本周日晚上 8:00 - 10:00。欢迎中等水平球友加入，气氛轻松！</p>
+                    <button onclick="alert('报名成功！组织者将会通过系统联系您。')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-semibold hover:bg-indigo-100">立即加入 / 报名</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow border border-indigo-100">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-semibold">寻找搭档</span>
+                        <span class="text-sm text-gray-500">📍 ${city || 'Bintulu'} 社区球场</span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-1">寻找固定 ${sport} 陪练伙伴</h4>
+                    <p class="text-gray-600 text-sm mb-4">寻找每周二、四晚上一起练习切磋的伙伴，男女不限。</p>
+                    <button onclick="alert('已发送搭档请求！')" class="w-full bg-indigo-50 text-indigo-600 py-2 rounded-lg font-semibold hover:bg-indigo-100">联系球友</button>
+                </div>
+            `;
+
+            // 滚动到结果区域
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
