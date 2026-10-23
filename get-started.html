@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>立即开始 - SportMatch</title>
+    <title>用户注册与认证 - SportMatch</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- 导航栏 -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <a href="index.html" class="text-2xl font-bold text-indigo-600">SportMatch</a>
@@ -22,23 +23,156 @@
         </div>
     </header>
 
-    <main class="max-w-md mx-auto my-16 bg-white p-8 rounded-xl shadow-md border">
-        <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">加入 SportMatch</h2>
-        <form onsubmit="event.preventDefault(); alert('注册成功！');">
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-semibold mb-2">邮箱 / 用户名</label>
-                <input type="text" required class="w-full p-3 border rounded-lg focus:outline-indigo-600" placeholder="your@email.com">
+    <main class="max-w-md mx-auto my-16 bg-white p-8 rounded-2xl shadow-lg border">
+        
+        <!-- 步骤 1：注册表单 -->
+        <div id="stepRegister">
+            <h2 class="text-2xl font-bold text-center text-gray-900 mb-2">加入 SportMatch</h2>
+            <p class="text-center text-gray-500 text-sm mb-6">开启您的全球运动匹配之旅</p>
+            <form onsubmit="handleRegister(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">电子邮箱 (Email)</label>
+                    <input id="regEmail" type="email" required class="w-full p-3 border rounded-lg focus:outline-indigo-600" placeholder="your.email@example.com">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">设置密码</label>
+                    <input id="regPass" type="password" required class="w-full p-3 border rounded-lg focus:outline-indigo-600" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">下一步：邮箱验证</button>
+            </form>
+        </div>
+
+        <!-- 步骤 2：邮箱验证码输入（默认隐藏） -->
+        <div id="stepVerify" class="hidden">
+            <h2 class="text-2xl font-bold text-center text-gray-900 mb-2">📧 邮箱验证</h2>
+            <p id="verifyTip" class="text-center text-gray-500 text-sm mb-6">验证码已发送至您的邮箱，请输入 6 位验证码（模拟测试码：<span class="font-bold text-indigo-600">123456</span>）</p>
+            <form onsubmit="handleVerify(event)">
+                <div class="mb-6">
+                    <input id="verifyCode" type="text" maxlength="6" required class="w-full p-3 border rounded-lg text-center tracking-widest text-2xl font-mono focus:outline-indigo-600" placeholder="__">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">确认验证</button>
+            </form>
+        </div>
+
+        <!-- 步骤 3：完善运动档案（默认隐藏） -->
+        <div id="stepProfile" class="hidden">
+            <h2 class="text-2xl font-bold text-center text-gray-900 mb-2">⚡ 完善您的运动档案</h2>
+            <p class="text-center text-gray-500 text-sm mb-6">让我们为您精准匹配同城球友与比赛</p>
+            <form onsubmit="handleCompleteProfile(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">您的昵称</label>
+                    <input id="proName" type="text" required class="w-full p-3 border rounded-lg" placeholder="例如: Steven Kuok">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">常驻城市</label>
+                    <input id="proCity" type="text" required class="w-full p-3 border rounded-lg" value="Bintulu, Sarawak">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">首选运动项目</label>
+                    <select id="proSport" class="w-full p-3 border rounded-lg">
+                        <option value="Badminton">羽毛球 (Badminton)</option>
+                        <option value="Football">足球 (Football)</option>
+                        <option value="Basketball">篮球 (Basketball)</option>
+                        <option value="Pickleball">匹克球 (Pickleball)</option>
+                    </select>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">球技水平</label>
+                    <select id="proLevel" class="w-full p-3 border rounded-lg">
+                        <option value="初级">新手友好 / 初级</option>
+                        <option value="中级" selected>中等水平 / Club Player</option>
+                        <option value="高级">高手进阶 / 比赛级</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition">保存档案并进入平台</button>
+            </form>
+        </div>
+
+        <!-- 步骤 4：注册成功后的用户中心面板（默认隐藏） -->
+        <div id="stepDashboard" class="hidden text-center py-4">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">✅</div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-1">欢迎回来，<span id="displayName"></span>！</h2>
+            <p class="text-indigo-600 font-semibold text-sm mb-4" id="displayProfileInfo"></p>
+            <div class="bg-gray-50 p-4 rounded-xl border text-left mb-6 text-sm text-gray-600">
+                <p>📍 状态：已完成邮箱认证 (Email Verified)</p>
+                <p>🏆 参与局数：0 场</p>
+                <p>👥 绑定搭档：0 人</p>
             </div>
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-semibold mb-2">密码</label>
-                <input type="password" required class="w-full p-3 border rounded-lg focus:outline-indigo-600" placeholder="••••••••">
+            <div class="flex gap-3">
+                <a href="matches.html" class="flex-1 bg-indigo-600 text-white py-2 rounded-lg font-bold text-center">去组局大厅</a>
+                <button onclick="handleLogout()" class="px-4 py-2 border border-red-300 text-red-600 rounded-lg font-bold">退出登录</button>
             </div>
-            <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">立即注册账号</button>
-        </form>
+        </div>
+
     </main>
 
     <footer class="bg-gray-800 text-white py-8 text-center mt-auto">
         <p>&copy; 2026 SportMatch. 构建全球运动社交连接。</p>
     </footer>
+
+    <!-- 交互逻辑脚本 -->
+    <script>
+        let userEmail = '';
+
+        function handleRegister(event) {
+            event.preventDefault();
+            userEmail = document.getElementById('regEmail').value;
+            
+            // 切换到验证码步骤
+            document.getElementById('stepRegister').classList.add('hidden');
+            document.getElementById('stepVerify').classList.remove('hidden');
+            document.getElementById('verifyTip').innerText = 验证码已发送至 ${userEmail}，请输入 6 位验证码（模拟测试码：123456）;
+        }
+
+        function handleVerify(event) {
+            event.preventDefault();
+            const code = document.getElementById('verifyCode').value;
+            
+            if (code !== '123456') {
+                alert('验证码错误！请输入 123456 进行测试。');
+                return;
+            }
+
+            alert('邮箱验证成功！');
+            // 切换到完善档案步骤
+            document.getElementById('stepVerify').classList.add('hidden');
+            document.getElementById('stepProfile').classList.remove('hidden');
+        }
+
+        function handleCompleteProfile(event) {
+            event.preventDefault();
+            const name = document.getElementById('proName').value;
+            const city = document.getElementById('proCity').value;
+            const sport = document.getElementById('proSport').value;
+            const level = document.getElementById('proLevel').value;
+
+            // 保存到浏览器缓存
+            localStorage.setItem('sportmatch_user', JSON.stringify({ name, city, sport, level, email: userEmail }));
+
+            showDashboard(name, city, sport, level);
+        }
+
+        function showDashboard(name, city, sport, level) {
+            document.getElementById('stepProfile').classList.add('hidden');
+            document.getElementById('stepDashboard').classList.remove('hidden');
+            document.getElementById('displayName').innerText = name;
+            document.getElementById('displayProfileInfo').innerText = ${city} | 主打 ${sport} (${level});
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('sportmatch_user');
+            location.reload();
+        }
+
+        // 页面加载时检查是否已经登录
+        window.onload = function() {
+            const savedUser = localStorage.getItem('sportmatch_user');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                document.getElementById('stepRegister').classList.add('hidden');
+                showDashboard(user.name, user.city, user.sport, user.level);
+            }
+        };
+    </script>
 </body>
 </html>
